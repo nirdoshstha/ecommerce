@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TestRequest extends FormRequest
+class TagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,8 @@ class TestRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'name'  =>'required|string|max:191',
-            'email' =>'required|unique:tests',
+            'name'          => 'required|string|max:191',
+            'slug'          => 'required|string|max:191|unique:categories,slug,' .$this->id,
         ];
     }
-
-    // public function messages()
-    // {
-    //     return [
-
-    //         '*.required'  => 'Please Enter the :attribute',
-    //     ];
-    // }
 }
