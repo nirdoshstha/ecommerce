@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Attribute;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProductsRequest;
+use App\Models\ProductAttributeDetails;
 
 class ProductsController extends BackendBaseController
 {
@@ -31,6 +35,8 @@ class ProductsController extends BackendBaseController
         $data=[];
         $data['categories'] = Category::pluck('name','id');
         $data['subcategories'] = Subcategory::pluck('name','id');
+        $data['tags'] = Tag::pluck('name','id');
+        $data['attribute'] = Attribute::pluck('name','id');
 
         // return view($this->view_path.'create',compact('data'));
         return view($this->__loadDataToView($this->view_path.'create'),compact('data'));
@@ -39,15 +45,31 @@ class ProductsController extends BackendBaseController
 
     public function store(ProductsRequest $request){
         try{
+            DB::beginTransaction();
             $request->request->add(['created_by' => auth()->user()->id]);
-            $this->model->create($request->all());
+            //To Store Product
+            $product = $this->model->create($request->all());
+
+            //To Store Product Attribute
+            foreach ($request['attribute_id'] as $index =>$attribute_id){
+            ProductAttributeDetails::create([
+                'product_id'    =>$product->id,
+                'attribute_id'  =>$attribute_id,
+                'value'         =>$request['attribute_value'][$index],
+            ]);
+            }
+            $product->tags()->attach($request['tag_id']);
+
+            DB::commit();
             session()->flash('success_message',$this->panel.' Inserted Successfully');
         }
         catch(\Exception $e){
+            DB::rollback();
             session()->flash('error_message','Something Went Wrong');
         }
 
-        return redirect()->route($this->base_route.'index');
+        return response()->json('Data Inserted Successfully');
+        // return redirect()->route($this->base_route.'index');
     }
 
     public function show($id){
@@ -64,6 +86,7 @@ class ProductsController extends BackendBaseController
         $data['rows']  = $this->model->findOrFail($id);
         $data['categories'] = Category::pluck('name','id');
         $data['subcategories'] = Subcategory::pluck('name','id');
+        $data['tags'] = Tag::pluck('name','id');
 
 
         // return view($this->view_path.'edit',compact('data'));
@@ -82,6 +105,7 @@ class ProductsController extends BackendBaseController
             $request->request->add(['updated_by' => auth()->user()->id]);
             // $data['rows']   = $this->model->findOrFail($id);
             $data['row']->update($request->all());
+            $data['row']->tags()->sync($request['tag_id']);
             session()->flash('success_message',$this->panel.' Update Successfully');
         }
         catch(\Exception $e){

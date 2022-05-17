@@ -29,7 +29,10 @@ class ProductsRequest extends FormRequest
             'name'              => 'required|string|max:191',
             'slug'              => 'required|string|max:191|unique:products,slug,' .$this->id,
             'code'              => 'required|integer|min:1|unique:products,code,' .$this->id,
-            'description'       =>'required|string|max:1000',
+            'description'       =>'nullable|string|max:1000',
+            'attribute_id'      =>'required|array',
+            'attribute_id.*'    =>'required',
+            'price'             =>'required|min:0',
         ];
     }
 

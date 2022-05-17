@@ -1,6 +1,14 @@
 @extends('backend.layouts.master',['page'=>'Edit'])
 @section('title','Edit'.' '.$panel)
 
+@section('css')
+    <style>
+        .select2-selection__choice{
+            background-color : #1c21ccd0 !important;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="card card-info">
     <div class="card-header">
@@ -14,18 +22,14 @@
 {{--  <form action="{{route('test.update',['id'=>$data['rows']->id ])}}" method="POST" class="form-horizontal">
     @csrf
     @method('put')  --}}
-    {{Form::model($data['rows'], ['route' => [$base_route.'update', $data['rows']->id], 'method'=>'put','files'=>'true'])}}
+    {{--  {{ Form::model($data['row'], ['route' => [$base_route.'update', $data['row']->id],'method' => 'put','id' => 'main_form']) }}  --}}
+    {{Form::model($data['rows'], ['route' => [$base_route.'update', $data['rows']->id], 'method'=>'put','id' => 'main_form', 'files'=>'true'])}}
     @include($view_path.'includes.main_form')
     {!! Form::close() !!}
 
 @endsection
 
 @section('js')
-<script>
-    $("#name").keyup(function(){
-        let name = $(this).val();
-        let slug = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-        $("#slug").val(slug);
-    });
-</script>
+
+@include($view_path.'includes.script');
 @endsection

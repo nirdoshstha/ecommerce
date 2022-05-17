@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AttributeController;
@@ -77,6 +78,13 @@ Route::get('attributes/{id}',[AttributeController::class,'show'])->name('attribu
 Route::get('attributes/{id}/edit',[AttributeController::class,'edit'])->name('attributes.edit');
 Route::put('attributes/{id}/update',[AttributeController::class,'update'])->name('attributes.update');
 Route::delete('attributes/{id}/destroy',[AttributeController::class,'destroy'])->name('attributes.destroy');
+
+//Settings
+
+Route::get('setting/create',[SettingController::class, 'create'])->name('setting.create');
+Route::post('setting',[SettingController::class,'store'])->name('setting.store');
+Route::get('setting/{id}/edit',[SettingController::class,'edit'])->name('setting.edit');
+Route::put('setting/{id}/update',[SettingController::class,'update'])->name('setting.update');
 
 });
 

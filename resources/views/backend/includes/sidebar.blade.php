@@ -170,6 +170,18 @@
 
           </li>
 
+          <!--Attributes-->
+          <li class="nav-item {{request()->is('attributes*') ? 'menu-open' :""}}">
+            <a href="{{route('setting.create')}}" class="nav-link {{request()->is('setting/create') ? 'active' :""}}">
+                <i class="fa fa-cog nav-icon"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+          </li>
+
           <li class="nav-item menu-open">
             <a class="nav-link" href="{{ route('logout') }}"
             onclick="event.preventDefault();

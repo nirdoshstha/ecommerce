@@ -25,4 +25,12 @@ class Product extends Model
     public function updatedBy(){
         return $this->belongsTo(User::class, 'updated_by');
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    public function attributeDetails(){
+        return $this->belongsTo(ProductAttributeDetails::class);
+    }
 }
