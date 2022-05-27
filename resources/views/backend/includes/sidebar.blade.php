@@ -170,12 +170,23 @@
 
           </li>
 
-          <!--Attributes-->
+          <!--Setting-->
           <li class="nav-item {{request()->is('attributes*') ? 'menu-open' :""}}">
             <a href="{{route('setting.create')}}" class="nav-link {{request()->is('setting/create') ? 'active' :""}}">
                 <i class="fa fa-cog nav-icon"></i>
               <p>
                 Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+
+          <!--User profile and Password Reset-->
+          <li class="nav-item">
+            <a href="{{route('user_profile.create')}}" class="nav-link">
+                <i class="fa fa-cog nav-icon"></i>
+              <p>
+                User Profile
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

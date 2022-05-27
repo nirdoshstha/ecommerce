@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
@@ -8,26 +9,17 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\Frontend\HomeController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
 
-Route::get('/test', function () {
-    return view('backend.test');
-});
+Route::get('/',[HomeController::class,'index'])->name('frontend.index');
+
 
 Route::middleware(['web','auth'])->group(function () {
 
@@ -79,12 +71,18 @@ Route::get('attributes/{id}/edit',[AttributeController::class,'edit'])->name('at
 Route::put('attributes/{id}/update',[AttributeController::class,'update'])->name('attributes.update');
 Route::delete('attributes/{id}/destroy',[AttributeController::class,'destroy'])->name('attributes.destroy');
 
-//Settings
 
+//Settings
 Route::get('setting/create',[SettingController::class, 'create'])->name('setting.create');
 Route::post('setting',[SettingController::class,'store'])->name('setting.store');
 Route::get('setting/{id}/edit',[SettingController::class,'edit'])->name('setting.edit');
 Route::put('setting/{id}/update',[SettingController::class,'update'])->name('setting.update');
+
+//User Profile
+Route::get('user-profile/create',[UserProfileController::class, 'create'])->name('user_profile.create');
+Route::post('user-profile/update-basic-info',[UserProfileController::class,'updateBasicInfo'])->name('user_profile.update_basic_info');
+Route::post('user-profile/update-password',[UserProfileController::class,'updatePassword'])->name('user_profile.update_password');
+
 
 });
 
