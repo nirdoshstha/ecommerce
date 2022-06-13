@@ -19,6 +19,7 @@
                     <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
                   </svg> <span class="text-primary">{{$panel}}</span></h3>
                   <a href="{{route($base_route.'create')}}" class="btn btn-success float-right"><i class="fas fa-pencil-alt"></i> Create</a>
+                  <a href="{{route($base_route.'trash')}}" class="btn btn-danger float-right mr-3"><i class="fas fa-trash-alt"></i> Trash</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -43,9 +44,9 @@
                       <input type="checkbox" {{$row->status=='1'? 'checked' : ''}}>
                   </td>
                   {{--  <td>{{$row->created_at->format("Y-m-d H:i:s")}} ({{$row->created_at->diffForHumans()}})</td>  --}}
-                  <td>{{$row->created_at->diffForHumans()}}</td>
+                  <td> </td>
 
-                  <td>{{$row->createdBy->name}}</td>
+                  <td> </td>
                   <td class="d-flex justify-cntent-around">
                       <a href="{{route($base_route.'show', ['id'=>$row->id])}}" class="btn btn-primary btn-sm mr-1">
                       <i class="fas fa-folder"></i>&nbsp;View</a>

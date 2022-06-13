@@ -4,9 +4,9 @@
 @section('content')
 <div class="card card-info">
     <div class="card-header">
-<h3 class="card-title">Add Details {{$panel}}</h3><div class="card-header">
+<h3 class="card-title">Add Details {{$panel}}</h3>
     <a href="{{route($base_route.'index')}}" class="btn btn-info btn-md float-right ml-2"><i class="fas fa-list"></i> List</a>
-</div>
+
 </div>
 <!-- /.card-header -->
 <!-- form start -->

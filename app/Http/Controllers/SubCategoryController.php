@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use App\Exports\SubCategoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\SubcategoryRequest;
 
 class SubCategoryController extends BackendBaseController
@@ -20,7 +22,7 @@ class SubCategoryController extends BackendBaseController
     }
     public function index(){
         $data=[];
-        $data['rows'] =$this->model->latest()->get();
+        $data['rows'] =$this->model->with('products','categoryId')->latest()->get();
         // return view($this->view_path.'index',compact('data'));
         return view($this->__loadDataToView($this->view_path.'index'),compact('data'));
 
@@ -103,5 +105,10 @@ class SubCategoryController extends BackendBaseController
             session()->flash('error_message','Something went wrong');
         }
         return redirect()->route($this->base_route.'index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new SubCategoryExport, 'Subcategory.xlsx');
     }
 }

@@ -2,23 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\FilterDataTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class Category extends BackendBaseModel
 {
     use HasFactory;
+    // use FilterDataTrait;
     // protected $table = 'categories';
     protected $fillable = ['name','slug','image','rank','short_description','description','status','created_by','updated_by'];
 
-
-    public function createdBy(){
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function updatedBy(){
-        return $this->belongsTo(User::class, 'updated_by');
-    }
 
     public function subCategories(){
         return $this->hasMany(Subcategory::class);

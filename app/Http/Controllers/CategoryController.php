@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Exports\CategoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends BackendBaseController
@@ -19,10 +21,9 @@ class CategoryController extends BackendBaseController
     }
     public function index(){
         $data=[];
-        $data['rows'] =$this->model->latest()->get();
+        $data['rows'] =$this->model->with('subCategories','createdBy','updatedBy')->latest()->get();
         // return view($this->view_path.'index',compact('data'));
         return view($this->__loadDataToView($this->view_path.'index'),compact('data'));
-
     }
 
     public function create(){
@@ -99,4 +100,16 @@ class CategoryController extends BackendBaseController
         }
         return redirect()->route($this->base_route.'index');
     }
+
+
+    public function export()
+    {
+        return Excel::download(new CategoryExport, 'category.xlsx');
+    }
+
+    public function exportExcel(){
+        $data =[];
+        return view($this->__loadDataToView($this->view_path.'import_excel'),compact('data'));
+    }
+
 }

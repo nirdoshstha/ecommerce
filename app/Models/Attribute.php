@@ -4,17 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Attribute extends Model
+class Attribute extends BackendBaseModel
 {
-    use HasFactory;
+    use SoftDeletes;
     protected $fillable=['name', 'status', 'created_by', 'updated_by'];
 
-    public function createdBy(){
-        return $this->belongsTo(User::class, 'created_by');
-    }
 
-    public function updatedBy(){
-        return $this->belongsTo(User::class, 'updated_by');
-    }
 }

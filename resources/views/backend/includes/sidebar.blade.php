@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('assets/backend/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">E-commerce</span>
     </a>
 
     <!-- Sidebar -->
@@ -107,6 +107,33 @@
               </li>
               <li class="nav-item ">
                 <a href="{{route('products.create')}}" class="nav-link {{request()->is('products/create') ? 'active' :""}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+          <!--Multple Images-->
+          <li class="nav-item {{request()->is('product-images*') ? 'menu-open' :""}}">
+            <a href="#" class="nav-link {{request()->is('product-images*') ? 'active' :""}}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Multiple Images
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('product_images.index')}}" class="nav-link {{request()->is('product-images') ? 'active' :""}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{route('product_images.create')}}" class="nav-link {{request()->is('product-images/create') ? 'active' :""}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create</p>
                 </a>

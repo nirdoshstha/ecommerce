@@ -18,6 +18,7 @@
                     <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
                     <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
                   </svg> <span class="text-primary">{{$panel}}</span></h3>
+                  <a href="{{route($base_route.'export')}}" class="btn btn-warning float-right ml-3"><i class="fas fa-download"></i> Download Excel</a>
                   <a href="{{route($base_route.'create')}}" class="btn btn-success float-right"><i class="fas fa-pencil-alt"></i> Create</a>
             </div>
             <!-- /.card-header -->

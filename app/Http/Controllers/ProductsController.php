@@ -7,8 +7,10 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\Subcategory;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\ProductsRequest;
 use App\Models\ProductAttributeDetails;
 
@@ -18,14 +20,14 @@ class ProductsController extends BackendBaseController
     protected $base_route = 'products.';
     protected $view_path = 'backend.products.';
     protected $panel = 'Products';
-    protected $img_path = 'images/products/';
+    protected $img_path = 'images/product/';
 
     public function __construct(){
     $this->model = new Product();
     }
     public function index(){
         $data=[];
-        $data['rows'] =$this->model->latest()->get();
+        $data['rows'] =$this->model->with('categoryId','subcategoryId','tags','attributeDetails')->latest()->get();
         // return view($this->view_path.'index',compact('data'));
         return view($this->__loadDataToView($this->view_path.'index'),compact('data'));
 
@@ -59,6 +61,33 @@ class ProductsController extends BackendBaseController
             ]);
             }
             $product->tags()->attach($request['tag_id']);
+
+            //Multple Image Uploaded
+            foreach($request['image_field'] as $index=>$image)
+            {
+                if($request->hasFile('image_field'))
+                {
+                    $image_name = time().rand().'_'.$image->getClientOriginalName();
+                    $image->move($this->img_path,$image_name);
+
+                    //Image Resize
+                    if($dimensions = config('image_dimension.product.image')){
+                        foreach($dimensions as $dimension){
+                            $image = Image::make($this->img_path. $image_name)->resize($dimension['width'], $dimension['height']);
+                            $image->save($this->img_path.$dimension['width'].'_'.$dimension['height'].'_'. $image_name);
+                        }
+                    }
+
+
+                    //Multible Image Save
+                    ProductImage::create([
+                        'product_id'    =>$product->id,
+                        'name'          =>$request['image_name'][$index],
+                        'image'         =>$image_name,
+                    ]);
+
+                }
+            }
 
             DB::commit();
             session()->flash('success_message',$this->panel.' Inserted Successfully');

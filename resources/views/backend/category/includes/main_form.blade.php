@@ -73,6 +73,18 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <div class="col-3">
+            {{ Form::label('status', 'Status',["class" => "radiostatus"]) }}
+        </div>
+        <div class="col-9">
+            <label class="radio-inline">
+            {{ Form::radio('status', 1, true) }} Hide </label>
+            <label class="radio-inline">
+            {{ Form::radio('status',0, false) }} Show </label>
+        </div>
+    </div>
+
 
   </div>
   <!-- /.card-body -->

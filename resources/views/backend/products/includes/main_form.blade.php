@@ -125,6 +125,7 @@
         </div>
     </div>
 
+
     <table class="table table-striped table-bordered" id="attribute_wrapper">
         <tr>
             <th>Attribute</th>
@@ -146,6 +147,31 @@
         <i class="fa fa-plus"></i>
         Add
     </button>
+
+    <hr/>
+    <table class="table table-striped table-bordered" id="image_wrapper">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>
+                {!! Form::file('image_field[]',null,['class' => 'form-control']) !!}
+            </td>
+            <td>
+                {{ Form::text('image_name[]',null,['class' => 'form-control','id'=>'image_name','placeholder'=>'Enter Image Name']) }}
+            <td>
+                <a class="btn btn-block btn-danger sa-warning remove_image "><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-info" type="button" id="addMoreImage" style="margin-bottom: 20px">
+        <i class="fa fa-plus"></i>
+        Add
+    </button>
+
+
 
   </div>
   <!-- /.card-body -->

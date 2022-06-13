@@ -13,11 +13,11 @@
                     </tr>
                 <tr>
                     <th>Name</th>
-                    <td> {{$data['row']->userProfile->name}}</td>
+                    <td> {{$data['row']->user->name}}</td>
                 </tr>
                 <tr>
                     <th>Email </th>
-                    <td>{{$data['row']->userProfile->email}}</td>
+                    <td>{{$data['row']->user->email}}</td>
                 </tr>
                 <tr>
                     <th>Phone</th>

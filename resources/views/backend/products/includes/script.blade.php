@@ -35,6 +35,8 @@
         }
         });
 
+
+        //Attribute Start
         var y=1;
             $('#addMoreAttribute').click(function(){
                 var max_limit = 5;
@@ -60,12 +62,59 @@
         });
 
 
-        //Remove
+        //Remove Attribute
 
         $(document).on("click",".remove_row",function() {
-            y--;
+            if(y>1){
+                y--;
             $(this).parents("tr").remove();
+            }
+            else{
+                alert('Sorry ! you can not delete last row');
+            }
+
         });
+
+
+        //Multiple Image Start
+        var y=1;
+            $('#addMoreImage').click(function(){
+                var max_limit = 5;
+                if(y < max_limit)
+                {
+                    y++;
+                    $("#image_wrapper tr:last").after(
+                '<tr>'+
+                '  <td>{!! Form::file('image_field[]',null,['class' => 'form-control']) !!}'+
+                '   </td>'+
+                '   <td><input type="text" name="image_name[]" class="form-control" placeholder="Enter Image Name"/></td>'+
+                '   <td>'+
+                '       <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>'+
+                '   </td>'+
+                '</tr>'
+            );
+                }
+
+                else{
+                    alert('Max Add Image limit is 5');
+                }
+
+        });
+
+
+        //Multiple ImageRemove
+
+        $(document).on("click",".remove_image",function() {
+            if(y>1){
+                 y--;
+            $(this).parents("tr").remove();
+            }
+            else{
+                alert('Sorry ! you cannot remove last row');
+            }
+
+        });
+
 
 
         //form submit

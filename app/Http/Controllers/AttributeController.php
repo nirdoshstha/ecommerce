@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttributeRequest;
 
 class AttributeController extends BackendBaseController
@@ -19,7 +20,8 @@ class AttributeController extends BackendBaseController
     }
     public function index(){
         $data=[];
-        $data['rows'] =$this->model->latest()->get();
+        // $data['rows'] =$this->model->latest()->get();
+        $data['rows'] = DB::table('attributes')->where('deleted_at',null)->get();
         // return view($this->view_path.'index',compact('data'));
         return view($this->__loadDataToView($this->view_path.'index'),compact('data'));
 
@@ -98,5 +100,41 @@ class AttributeController extends BackendBaseController
             session()->flash('error_message','Something went wrong');
         }
         return redirect()->route($this->base_route.'index');
+    }
+
+    public function trash(){
+        $data['row'] =$this->model->onlyTrashed()->latest()->get();
+        return view($this->__loadDataToView($this->view_path.'.trash'), compact('data'));
+    }
+
+    public function restore(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $data['rows'] = $this->model->withTrashed()->find($id)->restore();
+            DB::commit();
+
+            return redirect()->route($this->base_route.'index')->with('success_message', $this->panel.' Restored Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route($this->base_route.'index')->with('error_message', $this->panel.' Restore Failed');
+        }
+    }
+
+    public function forceDelete(Request $request, $id)
+    {
+        DB::beginTransaction();
+        $data['row'] = $this->model->withTrashed()->find($id);
+        try {
+            $data['row']->forceDelete();
+            DB::commit();
+
+            return redirect()->route($this->base_route.'trash')->with('success_message', $this->panel.' Deleted Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route($this->base_route.'trash')->with('error_message', $this->panel.' Restore Failed');
+        }
     }
 }

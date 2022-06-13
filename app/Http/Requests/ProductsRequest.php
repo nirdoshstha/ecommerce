@@ -32,6 +32,8 @@ class ProductsRequest extends FormRequest
             'description'       =>'nullable|string|max:1000',
             'attribute_id'      =>'required|array',
             'attribute_id.*'    =>'required',
+            'image_name'      =>'required|array',
+            'image_name.*'    =>'required',
             'price'             =>'required|min:0',
         ];
     }
