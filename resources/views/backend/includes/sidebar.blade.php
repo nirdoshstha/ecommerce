@@ -35,6 +35,33 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library --
 
+               <!--Menu-->
+               <li class="nav-item {{request()->is('menu*') ? 'menu-open' :""}}">
+                 <a href="#" class="nav-link {{request()->is('menu*') ? 'active' :""}}">
+                   <i class="nav-icon fas fa-tachometer-alt"></i>
+                   <p>
+                     Menu
+                     <i class="right fas fa-angle-left"></i>
+                   </p>
+                 </a>
+                 <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                     <a href="{{route('menu.index')}}" class="nav-link {{request()->is('menu') ? 'active' :""}}">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>List</p>
+                     </a>
+                   </li>
+                   <li class="nav-item ">
+                     <a href="{{route('menu.create')}}" class="nav-link {{request()->is('menu/create') ? 'active' :""}}">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Create</p>
+                     </a>
+                   </li>
+
+                 </ul>
+
+               </li>
+
           <!--Category-->
           <li class="nav-item {{request()->is('category*') ? 'menu-open' :""}}">
             <a href="#" class="nav-link {{request()->is('category*') ? 'active' :""}}">

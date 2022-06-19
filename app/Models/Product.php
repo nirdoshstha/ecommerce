@@ -34,4 +34,6 @@ class Product extends BackendBaseModel
         return $this->hasMany(ProductReviewReply::class);
     }
 
+
+
 }

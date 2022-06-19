@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -31,6 +32,17 @@ Route::get('category/export/', [CategoryController::class, 'export'])->name('cat
 
 //Import Category
 Route::get('category/import-excel/', [CategoryController::class, 'exportExcel'])->name('category.import_excel');
+
+
+//Menu
+Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+Route::get('menu/create',[MenuController::class, 'create'])->name('menu.create');
+Route::post('menu',[MenuController::class,'store'])->name('menu.store');
+Route::get('menu/{id}',[MenuController::class,'show'])->name('menu.show');
+Route::get('menu/{id}/edit',[MenuController::class,'edit'])->name('menu.edit');
+Route::put('menu/{id}/update',[MenuController::class,'update'])->name('menu.update');
+Route::delete('menu/{id}/destroy',[MenuController::class,'destroy'])->name('menu.destroy');
+
 
 //Category
 Route::get('category', [CategoryController::class, 'index'])->name('category.index');

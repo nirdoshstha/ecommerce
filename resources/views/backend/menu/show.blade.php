@@ -18,20 +18,24 @@
                 </a>
             </div>
             <table class="table table-striped">
-
                 <tr>
                     <th>Name</th>
-                    <td>{{ $data['rows']->productImage->name }}</td>
+                    <td>{{ $data['rows']->name }}</td>
+                </tr>
+                <tr>
+                    <th>Slug</th>
+                    <td>{{ $data['rows']->slug }}</td>
                 </tr>
 
-                 {{--  <tr>
+
+                <tr>
                     <th>Created By</th>
                     <td>{{ $data['rows']->createdBy->name }}</td>
-                </tr>  --}}
-                {{--  <tr>
+                </tr>
+                <tr>
                     <th>Updated By</th>
                     <td>{{ $data['rows']->updatedBy->name?? 'Not Updated Yet' }} ({{$data['rows']->updated_at->diffForHumans()}})</td>
-                </tr>  --}}
+                </tr>
                 <tr>
                     <th>Created At</th>
                     <td>{{ $data['rows']->created_at }}</td>

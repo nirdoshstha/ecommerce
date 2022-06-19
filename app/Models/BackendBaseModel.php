@@ -20,4 +20,6 @@ class BackendBaseModel extends Model
         return $query->where('status', 0);
     }
 
+
+
 }

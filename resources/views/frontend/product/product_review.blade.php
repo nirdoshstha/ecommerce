@@ -18,7 +18,7 @@
             </ul>
             <div class="rating__send" id="form-review-reply">
                 <a href="#" class="comment-reply" ><i class="zmdi zmdi-mail-reply"></i></a>
-                
+
             <form action="{{route('product.review_destroy',['id'=>$product_review->id])}}" method="POST">
                 @csrf
                 @method('DELETE')
