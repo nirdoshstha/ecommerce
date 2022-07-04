@@ -26,6 +26,10 @@ class Product extends BackendBaseModel
         return $this->belongsTo(ProductAttributeDetails::class);
     }
 
+    public function productImages(){
+        return $this->hasOne(ProductImage::class);
+    }
+
     public function productReviews(){
         return $this->hasMany(ProductReview::class);
     }

@@ -8,10 +8,18 @@ Home | E-commerce
 <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="{{asset('assets/frontend/images/new-product/3.jpg')}}" alt="new product"></a>
+            <a href="shop-sidebar.html"><img src="{{asset('images/slider.jpg')}}" alt="new product"></a>
         </div>
     </div>
 </div>
+
+{{--  <section id="banner" style="margin-top: 70px">
+    <div class="container only-banner-img">
+      <h4>Summer Sale is running</h4>
+      <h1 class="py-4">Special Collection <br/> up to 50% Off</h1>
+      <button class="text-uppercase">Shop Now</button>
+    </div>
+  </section>  --}}
 <!-- Start Our Product Area -->
 <section class="htc__product__area bg__white">
     <div class="container">
@@ -614,7 +622,7 @@ Home | E-commerce
 <section class="htc__product__area pb--100 bg__white">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            {{--  <div class="col-md-3">
                 <div class="product-categories-all">
                     <div class="product-categories-title">
                         <h3>BAGS & SHOES</h3>
@@ -633,40 +641,20 @@ Home | E-commerce
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-9">
+            </div>  --}}
+            <div class="col-md-12">
                 <div class="product-style-tab">
                     <div class="product-tab-list">
                         <!-- Nav tabs -->
-                        <ul class="tab-style" role="tablist">
+                        <ul class="text-center" role="tablist">
                             <li class="active">
                                 <a href="#home5" data-toggle="tab">
                                     <div class="tab-menu-text">
-                                        <h4>latest </h4>
+                                        <h4>The Most Popular Items </h4>
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#home6" data-toggle="tab">
-                                    <div class="tab-menu-text">
-                                        <h4>best sale </h4>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#home7" data-toggle="tab">
-                                    <div class="tab-menu-text">
-                                        <h4>top rated</h4>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#home8" data-toggle="tab">
-                                    <div class="tab-menu-text">
-                                        <h4>on sale</h4>
-                                    </div>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="tab-content another-product-style jump">

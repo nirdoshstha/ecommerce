@@ -11,6 +11,6 @@ class ProductImage extends BackendBaseModel
     // use HasFactory;
 
     public function productImage(){
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id','id');
     }
 }

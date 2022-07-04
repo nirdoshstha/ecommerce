@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -19,11 +20,27 @@ use App\Http\Controllers\ProductImagesController;
 // });
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.index');
+//Cart
+Route::get('product/cart',[HomeController::class,'cart'])->name('product.cart')->middleware('auth');
+Route::post('product/add-to-cart',[HomeController::class,'addToCart'])->name('product.add_to_cart');
 Route::get('/product/{slug}',[HomeController::class,'productDetails'])->name('product_details');
+Route::get('/product/{cat_slug}/{subcat_slug}',[HomeController::class,'subcategoryDetails'])->name('subcategory_details');
+
 Route::post('/product/store-review',[HomeController::class,'productReview'])->name('product.store_review');
 Route::delete('/product/delete-product-review/{id}',[HomeController::class,'deleteProductReview'])->name('product.review_destroy');
 Route::post('/product/review-reply',[HomeController::class,'reviewReply'])->name('product.review_reply');
 Route::delete('/product/delete-product-review-reply/{id}',[HomeController::class,'deleteProductReviewReply'])->name('product.review_reply_destroy');
+
+Route::post('/cart/coupon-apply',[HomeController::class, 'couponApply'])->name('cart.coupon_code');
+
+//Cart Delete from database using ajax
+Route::post('/product/cart/cart_delete',[HomeController::class,'cartDelete'])->name('product.cart_delete');
+Route::post('/product/cart/cart_update',[HomeController::class,'cartUpdate'])->name('product.cart_update');
+
+
+
+
+
 
 Route::middleware(['web','auth','is_admin'])->prefix('backend/')->group(function () {
 
@@ -77,6 +94,16 @@ Route::delete('products/{id}/destroy',[ProductsController::class,'destroy'])->na
 
 //Get Sub Category
 Route::post('products/get',[ProductsController::class,'getSubCategory'])->name('products.get_sub_category');
+
+
+//Coupon
+Route::get('coupon', [CouponController::class, 'index'])->name('coupon.index');
+Route::get('coupon/create',[CouponController::class, 'create'])->name('coupon.create');
+Route::post('coupon',[CouponController::class,'store'])->name('coupon.store');
+Route::get('coupon/{id}',[CouponController::class,'show'])->name('coupon.show');
+Route::get('coupon/{id}/edit',[CouponController::class,'edit'])->name('coupon.edit');
+Route::put('coupon/{id}/update',[CouponController::class,'update'])->name('coupon.update');
+Route::delete('coupon/{id}/destroy',[CouponController::class,'destroy'])->name('coupon.destroy');
 
 //Product Multiple Images
 Route::get('product-images', [ProductImagesController::class, 'index'])->name('product_images.index');

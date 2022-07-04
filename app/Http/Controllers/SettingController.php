@@ -29,7 +29,7 @@ class SettingController extends BackendBaseController
     }
 
     public function store(SettingRequest $request){
-        //try{
+        try{
             if($request->hasFile('image_field')){
                 $image_name =$this->uploadImage($request);
                 $request->request->add(['logo'=>$image_name]);
@@ -38,12 +38,13 @@ class SettingController extends BackendBaseController
             $request->request->add(['created_by' => auth()->user()->id]);
             $setting = $this->model->create($request->all());
             session()->flash('success_message',$this->panel.' Inserted Successfully');
-        //}
-        //catch(\Exception $e){
-          //  session()->flash('error_message','Something Went Wrong');
-        //}
+        }
+        catch(\Exception $e){
+           session()->flash('error_message','Something Went Wrong');
+        }
 
-        return redirect()->route($this->base_route.'edit',$setting->id);
+        // return redirect()->route($this->base_route.'edit',$setting->id);
+        return response()->json(['url'=>$this->base_route.'edit',$setting->id]);
     }
 
 
@@ -64,6 +65,9 @@ class SettingController extends BackendBaseController
                 $image_name =$this->uploadImage($request);
                 $request->request->add(['logo'=>$image_name]);
             }
+            if($request->shipping_type=='2'){
+                $request->request->add(['value'=>'0']);
+            }
             $request->request->add(['updated_by' => auth()->user()->id]);
             // $data['rows']   = $this->model->findorFail($id);
             $data['row']->update($request->all());
@@ -72,7 +76,9 @@ class SettingController extends BackendBaseController
         catch(\Exception $e){
             session()->flash('error_message','Something went wrong');
         }
-        return redirect()->back();
+        // return redirect()->back();
+        return response()->json(['url'=> route($this->base_route.'edit',$data['row']->id)]);
+
     }
 
 

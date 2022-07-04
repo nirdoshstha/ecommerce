@@ -28,7 +28,19 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function authenticated(){
+        if(auth()->user()->is_admin=='1')
+                {
+                     return redirect()->route('home');
+                }
+                else{
+                    return redirect()->back();
+                }
+
+
+    }
 
     /**
      * Create a new controller instance.
@@ -40,28 +52,28 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //     ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+    //     if (Auth::attempt($credentials)) {
+    //         $request->session()->regenerate();
 
-                if(auth()->user()->is_admin=='1')
-                {
-                     return redirect()->route('home');
-                }
-                else{
-                    return redirect()->route('frontend.index');
-                }
+    //             if(auth()->user()->is_admin=='1')
+    //             {
+    //                  return redirect()->route('home');
+    //             }
+    //             else{
+    //                 return redirect()->route('frontend.index');
+    //             }
 
-        }
+    //     }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    }
+    //     return back()->withErrors([
+    //         'email' => 'The provided credentials do not match our records.',
+    //     ])->onlyInput('email');
+    // }
 }

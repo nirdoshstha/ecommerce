@@ -7,7 +7,7 @@
                 <div class="slider__container slider--one">
                     <div class="slider__activation__wrap owl-carousel owl-theme">
                         <!-- Start Single Slide -->
-                        <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(0, 0, 0, 0) url({{asset('assets/frontend/images/slider/bg/slider.png')}}) no-repeat scroll center center / cover ;">
+                        <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(50, 0, 0, 0) url({{asset('assets/frontend/images/slider/bg/slider.png')}}) no-repeat scroll center center / cover ;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-10 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
@@ -55,7 +55,8 @@
                                             @foreach ($category->subCategories as $sub_categories )
                                                 <div class="category-part-1 category-common mb--30">
 
-                                                        <h4 class="categories-subtitle"> {{$sub_categories->name}}</h4>
+                                                        <a href="{{route('subcategory_details',['cat_slug'=>$category->slug,'subcat_slug'=>$sub_categories->slug])}}"><h4 class="categories-subtitle">{{$sub_categories->name}}</h4></a>
+
                                                             <ul>
                                                                 @foreach ($sub_categories->products as $products )
                                                                 <li><a href="{{route('product_details',['slug'=>$products->slug])}}">{{$products->name}}</a></li>

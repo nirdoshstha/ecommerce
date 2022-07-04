@@ -12,9 +12,15 @@
 {{--  <form action="{{route('test.update',['id'=>$data['rows']->id ])}}" method="POST" class="form-horizontal">
     @csrf
     @method('put')  --}}
-    {{Form::model($data['rows'], ['route' => [$base_route.'update', $data['rows']->id], 'method'=>'put','files'=>'true'])}}
+    {{Form::model($data['rows'], ['route' => [$base_route.'update', $data['rows']->id], 'method'=>'put', 'id'=>'main_form', 'files'=>'true'])}}
     @include($view_path.'includes.main_form')
     {!! Form::close() !!}
 
 @endsection
+
+
+@section('js')
+   @include($view_path.'includes.script')
+@endsection
+
 

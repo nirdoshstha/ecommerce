@@ -29,70 +29,47 @@ Product Details |Ecommerce
         <section class="htc__product__details pt--120 pb--100 bg__white">
             <div class="container">
                 <div class="row">
+                    @forelse ($data['products'] as $product )
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div class="product__details__container">
                             <!-- Start Small images -->
                             <ul class="product__small__images" role="tablist">
                                 <li role="presentation" class="pot-small-img active">
                                     <a href="#img-tab-1" role="tab" data-toggle="tab">
-                                        <img src="{{asset('assets/frontend/images/product-details/small-img/22.jpg')}}" alt="small-image">
+                                        @if ($product->productImages->image)
+                                        <img src="{{asset('images/product/'.'120_140_'.$product->productImages->first()->image)}}" alt="small-image">
+                                        @else
+                                            {{ 'Image Not Found' }}
+                                        @endif
+
                                     </a>
                                 </li>
-                                <li role="presentation" class="pot-small-img">
-                                    <a href="#img-tab-2" role="tab" data-toggle="tab">
-                                        <img src="{{asset('assets/frontend/images/product-details/small-img/33.jpg')}}" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img hidden-xs">
-                                    <a href="#img-tab-3" role="tab" data-toggle="tab">
-                                        <img src="{{asset('assets/frontend/images/product-details/small-img/44.jpg')}}" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img hidden-xs hidden-sm">
-                                    <a href="#img-tab-4" role="tab" data-toggle="tab">
-                                        <img src="{{asset('assets/frontend/images/product-details/small-img/55.jpg')}}" alt="small-image">
-                                    </a>
-                                </li>
+
                             </ul>
                             <!-- End Small images -->
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
-                                        <img src="{{asset('assets/frontend/images/product-details/big-img/22.jpg')}}" alt="full-image">
+                                        @if ($product->productImages->first()->image)
+                                        <img src="{{asset('images/product/'.$product->productImages->first()->image)}}" alt="big-image">
+                                        @else
+                                            {{ 'Image Not Found' }}
+                                        @endif
+
                                         <div class="product-video">
                                             <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                                 <i class="zmdi zmdi-videocam"></i> View Video
                                             </a>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-2">
-                                        <img src="{{asset('assets/frontend/images/product-details/big-img/33.jpg')}}" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-3">
-                                        <img src="{{asset('assets/frontend/images/product-details/big-img/44.jpg')}}" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-4">
-                                        <img src="{{asset('assets/frontend/images/product-details/big-img/55.jpg')}}" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @empty
+                    'no image'
+                    @endforelse
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
                         <div class="htc__product__details__inner">
                             <div class="pro__detl__title">
@@ -134,23 +111,29 @@ Product Details |Ecommerce
                                     <li><a href="#">xxl</a></li>
                                 </ul>
                             </div>
-                            <div class="product-action-wrap">
-                                <div class="prodict-statas"><span>Quantity :</span></div>
-                                <div class="product-quantity">
-                                    <form id='myform' method='POST' action='#'>
+                            <form action="{{route('product.add_to_cart')}}" id='form-cart' method='POST'>
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                    <div class="product-action-wrap">
+                                        <div class="prodict-statas"><span>Quantity :</span></div>
                                         <div class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
-                                            </div>
+
+                                                <div class="product-quantity">
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box" type="number" name="quantity" min="1" max="5" value="1">
+                                                    </div>
+                                                </div>
+
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><a href="#">buy now</a></li>
-                                <li><a href="#"><span class="ti-heart"></span></a></li>
-                                <li><a href="#"><span class="ti-email"></span></a></li>
-                            </ul>
+                                    </div>
+                                    <ul class="pro__dtl__btn">
+                                        <li class="buy__now__btn">
+                                            <button type="button"  id="buy-confirm" class="btn btn-primary btn-lg"> Buy now</button>
+                                        </li>
+                                        <li><a href="#"><span class="ti-heart"></span></a></li>
+                                        <li><a href="#"><span class="ti-email"></span></a></li>
+                                    </ul>
+                            </form>
                             <div class="pro__social__share">
                                 <h2>Share :</h2>
                                 <ul class="pro__soaial__link">
@@ -326,8 +309,18 @@ Product Details |Ecommerce
 <script>
     $( document ).ready(function()
     {
+        //Buy Confirm
+        $('#buy-confirm').click(function(){
+            if(!'{{auth()->user()}}')
+            {
+                $('#loginModal').modal('show');
+            }
+            else{
+                $('#form-cart').submit();
+            }
+        });
 
-        //login Moda show
+        //login Modal show
         $('#submit_review').click(function(){
             if(!'{{auth()->user()}}')
             {
@@ -337,6 +330,8 @@ Product Details |Ecommerce
                 $('#form-review').submit();
             }
         });
+
+
 
         //comment reply toggle textarea show
         $('.comment-reply').click(function(){
@@ -426,5 +421,7 @@ Product Details |Ecommerce
     });
 
 </script>
+
+
 
 @endsection

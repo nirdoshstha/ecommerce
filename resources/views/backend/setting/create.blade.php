@@ -10,10 +10,14 @@
 <!-- form start -->
 {{--  <form action="{{route('test.store')}}" method="POST" class="form-horizontal">
     @csrf  --}}
-    {{Form::open(['route' => $base_route.'store', 'method' => 'post', 'files'=>'true'])}}
+    {{Form::open(['route' => $base_route.'store', 'method' => 'post', 'files'=>'true', 'id'=>'main_form', 'files'=>'true'])}}
         @include($view_path.'includes.main_form')
     {!! Form::close() !!}
 {{--  </form>  --}}
 
+@endsection
+
+@section('js')
+   @include($view_path.'includes.script')
 @endsection
 

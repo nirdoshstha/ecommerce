@@ -143,6 +143,34 @@
 
           </li>
 
+          <!--Coupon-->
+          <li class="nav-item {{request()->is('coupon*') ? 'menu-open' :""}}">
+            <a href="#" class="nav-link {{request()->is('coupon*') ? 'active' :""}}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Coupon
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('coupon.index')}}" class="nav-link {{request()->is('coupon') ? 'active' :""}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{route('coupon.create')}}" class="nav-link {{request()->is('coupon/create') ? 'active' :""}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+
           <!--Multple Images-->
           <li class="nav-item {{request()->is('product-images*') ? 'menu-open' :""}}">
             <a href="#" class="nav-link {{request()->is('product-images*') ? 'active' :""}}">

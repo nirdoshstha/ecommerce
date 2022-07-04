@@ -21,11 +21,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'coupon_id'
     ];
 
     public function userProfile(){
         return $this->hasOne(UserProfile::class,'user_id','id');
     }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
+
+    public function userCoupon(){
+        return $this->belongsTo(Coupon::class,'coupon_id','id');
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

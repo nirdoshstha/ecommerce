@@ -22,6 +22,8 @@ class Setting extends BackendBaseModel
         'youtube_link',
         'instagram_link',
         'google_map',
+        'shipping_type',
+        'value',
         'status',
         // 'created_by',
     ];

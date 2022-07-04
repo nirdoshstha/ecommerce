@@ -100,7 +100,6 @@
     </div>
 
 
-
     <div class="form-group row mb-3">
         {{ Form::label('google_map', 'Google Map', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
@@ -108,6 +107,27 @@
             {{--  @include('backend.includes.validation_error_messages',['fieldname' => 'google_map'])  --}}
         </div>
     </div>
+
+    <div class="form-group row mb-3">
+        {{ Form::label('shipping_type', 'Shipping Type', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::select('shipping_type',['Flat','Percentage','Free'], null, ['class' => 'form-control', 'id' => 'shipping_type', 'placeholder' => 'Select Shipping Type']) }}
+            @include('backend.includes.validation_error_messages',['fieldname' => 'shipping_type'])
+        </div>
+    </div>
+
+    <div class="form-group row mb-3 shipping_value">
+        {{ Form::label('value', 'Value', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::number('value', null, ['class' => 'form-control', 'id' => 'value', 'placeholder' => 'Type Value']) }}
+            {{--  @include('backend.includes.validation_error_messages',['fieldname' => 'value'])  --}}
+        </div>
+    </div>
+
+
+
+
+
 
     <div class="form-group row">
         <div class="col-3">
@@ -127,3 +147,4 @@
   <div class="card-footer text-center">
     <button type="submit" class="btn btn-info btn-lg">Submit</button>
   </div>
+

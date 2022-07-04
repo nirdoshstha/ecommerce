@@ -4299,6 +4299,34 @@ a.shipping-calculator-button:hover {
     color: #f8cd35;
 }
 
+/*Banner */
+#banner{
+    background-image: url(../../../images/slider1.jpg) !important;
+    width: 100%  !important;
+    height: 60vh  !important;
+    background-size: cover  !important;
+    background-repeat: no-repeat  !important;
+    background-attachment: fixed  !important;
+    display: flex  !important;
+    flex-direction: column  !important;
+    justify-content: center  !important;
+    align-items: flex-start  !important;
+    background-position: top 70px center  !important;
+    margin-top: 75px;
+    margin-bottom: 75px;
+
+}
+#banner h4{
+    color: #c70000 !important;
+}
+#banner h1{
+    color: #fff  !important;
+}
+#banner button{
+    background-color: #f54949  !important;
+
+}
+
 
 
 
