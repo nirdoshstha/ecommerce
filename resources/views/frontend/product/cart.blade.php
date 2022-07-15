@@ -79,8 +79,8 @@ Cart |Ecommerce
                                         <tr >
                                             <td colspan="6"><h4 class="text-danger"> Cart is Empty </h4></td>
                                         </tr>
-
                                         @endforelse
+
 
 
                                     </tbody>
@@ -118,36 +118,36 @@ Cart |Ecommerce
                                                      </td>
                                                 </tr>
 
-                                                @if(auth()->user()->carts()->count()>0)
-                                                    <tr class="shipping">
-                                                        @forelse ($shipping as $shippings)
-                                                        <th>Shipping Type:
-                                                            @if($shippings->shipping_type==0)
-                                                            Flat =>
-                                                            @if($shippings->shipping_type==1)
-                                                            Percentage % =>
-                                                            @if($shippings->shipping_type==0)
-                                                            Free =>
-                                                            @endif @endif @endif
-                                                        </th>
-                                                        <td>
-                                                        <input type="text" id="shipping_type" class="shipping_type" value="{{$shippings->value ?? 0}}" disabled>
-                                                        @empty
-                                                        <th>Shipping Type:</th>
-                                                        <td>
-                                                            <input type="text" value="0" disabled>
-                                                        </td>
-                                                        @endforelse
+                                                <tr class="shipping">
+                                                    <th>Shipping</th>
+                                                    <td>
+                                                        <ul id="shipping_method">
+                                                            <li>
+                                                                <input type="radio" name="shipping" value="flat" class="shipping_type">
+                                                                <label>
+                                                                    Flat Rate: <span class="amount">Rs. 50.00</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="radio" name="shipping" value="free" class="shipping_type" checked>
+                                                                <label>
+                                                                    Free Shipping
+                                                                </label>
+                                                            </li>
+                                                            <li></li>
+                                                        </ul>
+                                                        <p><a class="shipping-calculator-button" href="#">Calculate Shipping</a></p>
+                                                    </td>
+                                                </tr>
 
-                                                        </td>
-                                                    </tr>
+
 
 
                                                 @if(auth()->user()->userCoupon()->exists())
                                                 @if(auth()->user()->carts()->count()>0)
                                                 <tr class="shipping">
                                                     <th>Coupon</th>
-                                                     <td><input type="number" class="coupon_amount" id="coupon_amount" value="{{$discount_coupon = auth()->user()->userCoupon->discount_amount}}"></td>
+                                                     <td><input type="number" class="coupon_amount" name="coupon_amount" id="coupon_amount" value="{{$discount_coupon = auth()->user()->userCoupon->discount_amount}}"></td>
 
                                                 </tr>
                                                 @endif
@@ -163,15 +163,14 @@ Cart |Ecommerce
                                                         $grand_total = auth()->user()->carts()->sum('grand_total');
                                                     @endphp
                                                     <td>
-                                                        <input type="number" class="total_amount" id="total_amount" value="{{$grand_total}}" disabled>
+                                                        <input type="number" id="total_amount" value="{{$grand_total}}" disabled>
                                                           {{--  <input type="text" value="@auth {{$grand_total + $shippings->value - $discount_coupon}} @else 0 @endauth " disabled>  --}}
                                                     </td>
                                                 </tr>
-                                                @endif
                                             </tbody>
                                         </table>
                                         <div class="wc-proceed-to-checkout">
-                                            <a href="checkout.html">Proceed to Checkout</a>
+                                            <a href="{{route('cart.checkout')}}">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -186,9 +185,22 @@ Cart |Ecommerce
 
 @section('script')
     <script>
+$(document).ready(function(){
+        //shipping type
+        let shipping_charge = 50;
+        $('.shipping_type').change(function(){
+            let shipping_type = $(this).val();
+            let total_amount = parseInt($('#total_amount').val());
+            if(shipping_type == 'flat'){
+                $('#total_amount').val(total_amount + shipping_charge);
+            }
+            else{
+                $('#total_amount').val(total_amount - shipping_charge);
+            }
+        });
 
         //quantiy plus/minus and update grand total
-    $(document).ready(function(){
+
         $('.quantity').change(function(){
              let quantity = $(this).val();
              let price = $(this).parents('tr').find('.price').val();
@@ -197,9 +209,7 @@ Cart |Ecommerce
              let stock = $(this).parents('tr').find('.stock').val();
              grand_total_element.val(total);
 
-             let total_amount = parseInt($('#total_amount').val());
-             let shipping_amount = $(this).parents('tr').find('.shipping_type').val();
-             $('.total_amount').val(total);
+
 
              let product_id =$(this).parents('tr').find('.product').val();
 
@@ -210,29 +220,14 @@ Cart |Ecommerce
                 method: "POST",
                 success: function(resp) {
                     $('.sub_total').val(resp.sub_total);
-
+                   // let total_amount = resp.sub_total - shipping_charge;
+                    $('#total_amount').val(resp.sub_total);
                     },
                 });
 
         });
 
         //Grand Total
-        $('.total_amount').change(function(e){
-            e.preventDefault();
-            let quantity = $(this).val();
-             let price = $(this).parents('tr').find('.price').val();
-             let grand_total_element = $(this).parents('tr').find('.grand_total');
-             let total  = quantity*price;
-             let stock = $(this).parents('tr').find('.stock').val();
-             grand_total_element.val(total);
-
-             let total_amount = parseInt($('#total_amount').val(total));
-             let shipping_amount = $(this).parents('tr').find('.shipping_type').val();
-             let coupon_amount = $(this).parents('tr').find('.coupon_amount').val();
-
-             $('.total_amount').val(total + shipping_amount);
-        })
-
         //remove item
        // $('.remove_item').click(function(){
        //     $(this).parents('tr').remove();
@@ -245,6 +240,7 @@ Cart |Ecommerce
 
         $('.remove_item').on('click',function(e) {
             e.preventDefault();
+            if(confirm('Are you sure to delete')){
             let product_id = $(this).next().val();
             let row = $(this);
 
@@ -256,9 +252,13 @@ Cart |Ecommerce
                 success: function(resp) {
                         row.parents('tr').remove();
                         $('.sub_total').val(resp.grand_total);
+                        {{--  let total_amount = resp.grand_total - shipping_charge;  --}}
+                        $('#total_amount').val(resp.grand_total);
+
 
                     },
-                })
+                });
+            }
 
             });
 

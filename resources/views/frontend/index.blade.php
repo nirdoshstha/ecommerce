@@ -5,13 +5,13 @@ Home | E-commerce
 @endsection
 
 @section('content')
-<div class="only-banner ptb--100 bg__white">
+{{--  <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
             <a href="shop-sidebar.html"><img src="{{asset('images/slider.jpg')}}" alt="new product"></a>
         </div>
     </div>
-</div>
+</div>  --}}
 
 {{--  <section id="banner" style="margin-top: 70px">
     <div class="container only-banner-img">
@@ -35,11 +35,11 @@ Home | E-commerce
                             <li><a href="#">Hot Earrings</a></li>
                             <li><a href="#">Jewelry Sets</a></li>
                             <li><a href="#">Beads Jewelry</a></li>
-                            <li><a href="#">Men's Watches</a></li>
+                            <li><a href="#">Mens Watches</a></li>
                             <li><a href="#">Women’s Watches</a></li>
                             <li><a href="#">Popular Bracelets</a></li>
                             <li><a href="#"> Pendant Necklaces</a></li>
-                            <li><a href="#">Children's Watches</a></li>
+                            <li><a href="#">Childrens Watches</a></li>
                         </ul>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
+                                                        <img src="{{asset('images/product/1656864942732719555_vivo.jpg')}}" alt="product images">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -113,7 +113,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
+                                                        <img src="{{asset('images/product/1656864942732719555_vivo.jpg')}}" alt="product images">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -138,7 +138,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
+                                                        <img src="{{asset('images/product/1656864942732719555_vivo.jpg')}}" alt="product images">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -163,7 +163,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
+                                                        <img src="{{asset('images/product/1656864942732719555_vivo.jpg')}}" alt="product images">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -610,7 +610,8 @@ Home | E-commerce
         </div>
     </div>
 </section>
-<!-- End Our Product Area -->
+
+
 <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
@@ -666,7 +667,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
+                                                        <img src="images/product/1656864942732719555_vivo.jpg" width="200" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -691,7 +692,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
+                                                        <img src="images/product/16568647181175836592_nokia105A.jpg" width="200" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">
@@ -716,7 +717,7 @@ Home | E-commerce
                                             <div class="product__inner">
                                                 <div class="pro__thumb">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
+                                                        <img src="images/product/1656864942732719555_vivo.jpg" width="200" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="product__hover__info">

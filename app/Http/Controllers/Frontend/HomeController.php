@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\User;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Order;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Subcategory;
+// use Request;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
-// use Request;
 use App\Models\ProductReview;
 use App\Models\ProductReviewReply;
 use App\Http\Controllers\Controller;
-use App\Models\Subcategory;
+use App\Models\OrderProduct;
 
 class HomeController extends Controller
 {
@@ -156,7 +158,46 @@ class HomeController extends Controller
             session()->flash('error_message','Couopn is not Valid');
         }
         return back();
+    }
 
+
+    public function cartCheckout(){
+        return view('frontend.checkout');
+    }
+
+    public function cartOrder(Request $request){
+
+        $order = Order::create([
+            'user_id'           =>auth()->user()->id,
+            'coupon_id'         =>request('coupon_amount'),
+            'first_name'        =>request('name'),
+            'last_name'         =>request('lname'),
+            'email'             =>request('email'),
+            'phone'             =>request('phone'),
+            'address'           =>request('address'),
+            'message'           =>request('message'),
+            'payment_mode'      =>request('payment_mode'),
+            'shipping_charge'   =>request('shipping'),
+            'sub_total'         =>auth()->user()->carts->sum('quantity')*auth()->user()->carts->sum('price'),
+            'total'             =>auth()->user()->carts->sum('grand_total'),
+            'created_by'        => auth()->user()->id,
+
+        ]);
+        
+
+       // $cart = session()->get(auth()->user()->carts);
+
+        foreach(auth()->user()->carts as $cart){
+            $order_product = OrderProduct::create([
+            'order_id'      =>$order->id,
+            'product_id'    =>$cart->product_id,
+            'quantity'      =>$cart->quantity,
+            'total'         =>$cart->quantity * $cart->price,
+            'created_by'    =>auth()->user()->id,
+            ]);
+        }
+        //$request->session()->forget(auth()->user()->carts);
+        return back();
     }
 
 

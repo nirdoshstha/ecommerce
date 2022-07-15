@@ -13,6 +13,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductImagesController;
 
 // Route::get('/', function () {
@@ -32,6 +33,10 @@ Route::post('/product/review-reply',[HomeController::class,'reviewReply'])->name
 Route::delete('/product/delete-product-review-reply/{id}',[HomeController::class,'deleteProductReviewReply'])->name('product.review_reply_destroy');
 
 Route::post('/cart/coupon-apply',[HomeController::class, 'couponApply'])->name('cart.coupon_code');
+
+//Checkout
+Route::get('/cart/checkout',[HomeController::class,'cartCheckout'])->name('cart.checkout');
+Route::post('/cart/order',[HomeController::class,'cartOrder'])->name('cart.checkout_order');
 
 //Cart Delete from database using ajax
 Route::post('/product/cart/cart_delete',[HomeController::class,'cartDelete'])->name('product.cart_delete');
@@ -137,7 +142,18 @@ Route::get('attributes/{id}/edit',[AttributeController::class,'edit'])->name('at
 Route::put('attributes/{id}/update',[AttributeController::class,'update'])->name('attributes.update');
 Route::delete('attributes/{id}/destroy',[AttributeController::class,'destroy'])->name('attributes.destroy');
 
-
+//Orders
+Route::get('order', [OrderController::class, 'index'])->name('order.index');
+Route::get('order/create',[OrderController::class, 'create'])->name('order.create');
+Route::post('order',[OrderController::class,'store'])->name('order.store');
+Route::get('order/{id}',[OrderController::class,'show'])->name('order.show');
+Route::get('order/proceed/{id}',[OrderController::class,'proceed'])->name('order.proceed');
+Route::get('order/{id}/edit',[OrderController::class,'edit'])->name('order.edit');
+Route::put('order/{id}/update',[OrderController::class,'update'])->name('order.update');
+Route::delete('order/{id}/destroy',[OrderController::class,'destroy'])->name('order.destroy');
+Route::put('order/update/payment/{id}',[OrderController::class,'updatePayment'])->name('order.payment_status');
+Route::put('order/update/order/{id}',[OrderController::class,'orderStatus'])->name('order.order_status');
+Route::get('order/invoice/{id}',[OrderController::class,'generateInvoice'])->name('order.generate_invoice');
 
 //Settings
 Route::get('setting/create',[SettingController::class, 'create'])->name('setting.create');

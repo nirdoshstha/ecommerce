@@ -64,7 +64,7 @@
                                 </div>
                             </li>
                         @endguest
-                        <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                        <li class="cart__menu"><a href="{{route('product.cart')}}"><span class="ti-shopping-cart"></span></a></li>
                         <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                     </ul>
                 </div>
@@ -200,7 +200,7 @@
                         <li class="total__price">$130.00</li>
                     </ul>
                     <ul class="shopping__btn">
-                        <li><a href="cart.html">View Cart</a></li>
+                        <li><a href="{{route('product.cart')}}">View Cart</a></li>
                         <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
                     </ul>
                 </div>

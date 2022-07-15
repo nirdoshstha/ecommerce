@@ -10,4 +10,7 @@ class Coupon extends BackendBaseModel
 {
     protected $fillable=['title', 'code', 'start_date', 'expire_date','discount_amount','status','created_by','updated_by'];
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }
